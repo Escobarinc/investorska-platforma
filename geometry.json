@@ -1,0 +1,12 @@
+{
+  "reference_width": 1440,
+  "source_visible_height": 946,
+  "page_height": 1106,
+  "tolerance_pct": 3,
+  "sections": [
+    {"id":"header", "selector":"header.site-header", "height":70},
+    {"id":"hero", "selector":"section#hero", "height":526},
+    {"id":"branches", "selector":"section#branches", "height":350},
+    {"id":"footer", "selector":"footer.site-footer", "height":160}
+  ]
+}

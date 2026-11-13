@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f5">
+  <meta name="description" content="Investorská platforma — realitní projekty, dluhopisy a investiční příležitosti. Funkční vizuální prototyp podle zadání.">
+  <title>Investorská platforma | Realitní projekty · Dluhopisy</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Symboly: pouze ručně kreslené UI ikony; fyzické objekty jsou fotografie. -->
+  <svg class="icons-def" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-sm" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18M12 3c-5 5-5 13 0 18"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 3.5 6v6.5c0 4.2 3.1 7.6 8.5 9.5 5.4-1.9 8.5-5.3 8.5-9.5V6z"/><path d="m8.5 12 2.3 2.3 5-5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 21v-5m5 5V10m5 11V6m5 15V3"/></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3"/><path d="M2 20v-2c0-4 3-6 7-6s7 2 7 6v2M16 4.5c2.5-.1 4.5 1.7 4.5 4s-2 4.1-4.5 4M18 13.6c2.7.8 4 2.8 4 5.4v1"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 12l10 5 10-5M2 17l10 5 10-5"/></symbol>
+    <symbol id="i-scales" viewBox="0 0 24 24"><path d="M12 3v18M3 7h18M6 7l-4 8h8L6 7Zm12 0-4 8h8l-4-8ZM8 21h8"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="7" cy="7" rx="5" ry="2.4"/><path d="M2 7v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7M2 11.5V16c0 1.4 2.2 2.5 5 2.5 1.3 0 2.5-.3 3.4-.8"/><ellipse cx="17" cy="15" rx="5" ry="2.4"/><path d="M12 15v4.5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V15"/></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l5 6-11 13L1 9l5-6Zm-5 6h22M6 3l3 6 3 13 3-13 3-6"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M2 21h20M5 21V8l6-4v17M11 21V3l8 4v14M8 10v2m0 3v2m6-8v2m3 0v2m-3 2v2m3 0v2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5.5 5.5L20 7"/></symbol>
+  </svg>
+
+  <div class="site-shell" id="top">
+    <header class="site-header">
+      <a href="#top" class="brand" aria-label="Investorská platforma – úvod">
+        <svg class="brand-mark" viewBox="0 0 46 38" aria-hidden="true"><path d="M0 30 8 24v14H0zM12 20l8-5v23h-8zM24 11l8-5v32h-8zM36 6l8-6v38h-8z" fill="currentColor"/></svg>
+        <span class="brand-copy"><strong>Investorská platforma</strong><small data-cz="REALITNÍ PROJEKTY · DLUHOPISY · INVESTIČNÍ PŘÍLEŽITOSTI" data-en="REAL ESTATE · BONDS · INVESTMENT OPPORTUNITIES">REALITNÍ PROJEKTY · DLUHOPISY · INVESTIČNÍ PŘÍLEŽITOSTI</small></span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Hlavní navigace">
+        <div class="nav-dropdown-wrap">
+          <button class="nav-link dropdown-toggle" type="button" id="navBranches" aria-expanded="false" aria-controls="branchesMenu"><span data-cz="Investiční větve" data-en="Investment paths">Investiční větve</span><svg class="icon tiny"><use href="#i-chevron"/></svg></button>
+          <div id="branchesMenu" class="dropdown-menu" hidden>
+            <button type="button" data-detail="direct">Přímý produkt</button>
+            <button type="button" data-detail="radar">Dluhopisový Radar</button>
+            <button type="button" data-detail="realty">Reality vs. finance</button>
+            <button type="button" data-detail="capital">Uvolněný kapitál</button>
+            <button type="button" data-detail="club">Investors Club</button>
+          </div>
+        </div>
+        <button type="button" class="nav-link" data-action="projects" data-cz="Projekty" data-en="Projects">Projekty</button>
+        <button type="button" class="nav-link" data-action="how" data-cz="Jak investice funguje" data-en="How it works">Jak investice funguje</button>
+        <button type="button" class="nav-link" data-action="about" data-cz="O nás" data-en="About us">O nás</button>
+        <button type="button" class="nav-link" data-detail="radar" data-cz="Analýzy & Radar" data-en="Insights & Radar">Analýzy &amp; Radar</button>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="lang-switch" id="langSwitch" aria-label="Změnit jazyk na angličtinu"><svg class="icon"><use href="#i-globe"/></svg><span>CZ / EN</span></button>
+        <button class="member-button" type="button" data-action="login"><svg class="icon"><use href="#i-user"/></svg><span data-cz="Vstup pro členy" data-en="Members login">Vstup pro členy</span></button>
+        <button class="mobile-menu-button" id="mobileMenuToggle" type="button" aria-label="Otevřít nabídku" aria-expanded="false" aria-controls="mobileMenu"><svg class="icon"><use href="#i-menu"/></svg></button>
+      </div>
+    </header>
+
+    <nav id="mobileMenu" class="mobile-nav" aria-label="Mobilní nabídka" hidden>
+      <button type="button" data-action="projects">Projekty</button>
+      <button type="button" data-action="how">Jak investice funguje</button>
+      <button type="button" data-detail="radar">Analýzy &amp; Radar</button>
+      <button type="button" data-action="about">O nás</button>
+      <button type="button" data-action="login">Vstup pro členy</button>
+    </nav>
+
+    <main>
+      <section id="hero" class="hero">
+        <img src="assets/hero_architecture.png" class="hero-photo" width="1672" height="941" alt="Moderní rezidenční komplex s prosklenými balkony v zeleném prostředí" fetchpriority="high">
+        <div class="hero-wash" aria-hidden="true"></div>
+        <div class="hero-angle" aria-hidden="true"></div>
+        <div class="hero-angle-back" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <div class="eyebrow hero-eyebrow"><span class="small-line"></span><span data-cz="INVESTICE DO REÁLNÝCH PROJEKTŮ" data-en="INVESTMENTS IN REAL PROJECTS">INVESTICE DO REÁLNÝCH PROJEKTŮ</span></div>
+          <h1><span data-cz="Smysluplné investice" data-en="Meaningful investments">Smysluplné investice</span><span data-cz="do českého developmentu" data-en="in Czech real estate">do českého developmentu</span></h1>
+          <p class="hero-description" data-cz="Zajištěné dluhopisy, prověřené projekty a jasná ekonomika. Vyberte si cestu, která odpovídá vašemu kapitálu, cílům a aktuální investiční situaci." data-en="Secured bonds, verified projects and transparent economics. Choose a path that suits your capital, goals and investment situation.">Zajištěné dluhopisy, prověřené projekty a jasná ekonomika.<br>Vyberte si cestu, která odpovídá vašemu kapitálu, cílům a aktuální<br>investiční situaci.</p>
+          <div class="hero-cta-row">
+            <button type="button" class="cta-main" data-action="projects"><span data-cz="Zobrazit aktuální projekty" data-en="Explore current projects">Zobrazit aktuální projekty</span><svg class="icon cta-arrow"><use href="#i-arrow"/></svg></button>
+            <button type="button" class="video-link" data-action="how"><span class="play-ring"><svg class="icon"><use href="#i-play"/></svg></span><span class="video-label"><strong data-cz="Jak to funguje" data-en="How it works">Jak to funguje</strong><small data-cz="(2 min)" data-en="(2 min)">(2 min)</small></span></button>
+          </div>
+        </div>
+
+        <aside class="project-panel" aria-label="Aktuální emise — ukázkové údaje">
+          <div class="panel-title">AKTUÁLNÍ EMISE</div>
+          <div class="panel-heading-row"><h2>Rezidenční projekt<br>Praha – Zličín</h2><svg class="icon panel-building"><use href="#i-building"/></svg></div>
+          <dl class="investment-metrics">
+            <div><dt>Výnos pro investora</dt><dd class="highlight">8,5 % p. a.</dd></div>
+            <div><dt>Minimální investice</dt><dd>300 000 Kč</dd></div>
+            <div><dt>Doba investice</dt><dd>24–36 měsíců</dd></div>
+          </dl>
+        </aside>
+
+        <div class="trust-list">
+          <div class="trust-item"><svg class="icon trust-icon"><use href="#i-shield"/></svg><span>Konkrétní projekty<br>s reálným zajištěním</span></div>
+          <div class="trust-item"><svg class="icon trust-icon"><use href="#i-chart"/></svg><span>Transparentní<br>podmínky a ekonomika</span></div>
+          <div class="trust-item"><svg class="icon trust-icon"><use href="#i-people"/></svg><span>Řešení pro různé<br>velikosti kapitálu</span></div>
+        </div>
+      </section>
+
+      <section id="branches" class="branches">
+        <div class="branches-header"><div class="eyebrow branch-eyebrow">PĚT INVESTIČNÍCH VĚTVÍ <span class="eyebrow-end-line"></span></div><h2>Vyberte si vstup, který odpovídá vaší situaci</h2></div>
+        <div class="branch-grid">
+          <button class="branch-card card-construction" data-detail="direct" type="button">
+            <img src="assets/construction.png" width="760" height="510" loading="lazy" alt="Moderní rezidenční výstavba se stavebními jeřáby">
+            <span class="card-shade"></span><span class="card-info"><svg class="icon card-icon"><use href="#i-layers"/></svg><strong>Přímý produkt</strong><span class="card-copy">Konkrétní projekt, emitent<br>a podmínky emise</span></span><svg class="icon card-arrow"><use href="#i-arrow-sm"/></svg>
+          </button>
+          <button class="branch-card card-radar" data-detail="radar" type="button">
+            <img src="assets/radar_laptop.png" width="760" height="510" loading="lazy" alt="Notebook při analýze finančních dat">
+            <span class="card-shade"></span><span class="card-info"><svg class="icon card-icon"><use href="#i-chart"/></svg><strong>Dluhopisový Radar</strong><span class="card-copy">Prověřte emitenta a porovnejte<br>vybrané emise</span></span><svg class="icon card-arrow"><use href="#i-arrow-sm"/></svg>
+          </button>
+          <button class="branch-card card-realty" data-detail="realty" type="button">
+            <img src="assets/realty.png" width="760" height="510" loading="lazy" alt="Současná rezidenční nemovitost se zahradou">
+            <span class="card-shade"></span><span class="card-info"><svg class="icon card-icon"><use href="#i-scales"/></svg><strong>Reality vs. finance</strong><span class="card-copy">Vlastnit nemovitost, nebo<br>investovat do jejího financování?</span></span><svg class="icon card-arrow"><use href="#i-arrow-sm"/></svg>
+          </button>
+          <button class="branch-card card-capital" data-detail="capital" type="button">
+            <img src="assets/capital.png" width="760" height="510" loading="lazy" alt="Hromádky investičních mincí">
+            <span class="card-shade"></span><span class="card-info"><svg class="icon card-icon"><use href="#i-coins"/></svg><strong>Uvolněný kapitál</strong><span class="card-copy">Rozhodněte, jak efektivně<br>zainvestovat aktuálně dostupné<br>prostředky</span></span><svg class="icon card-arrow"><use href="#i-arrow-sm"/></svg>
+          </button>
+          <button class="branch-card card-club" data-detail="club" type="button">
+            <img src="assets/club.png" width="760" height="510" loading="lazy" alt="Exkluzivní salonek s výhledem na město">
+            <span class="card-shade"></span><span class="card-info"><svg class="icon card-icon"><use href="#i-gem"/></svg><strong>Investors Club &amp;<br>Private Capital Club</strong><span class="card-copy">Vybrané projekty od 1 mil. Kč<br>a privátní příležitosti od 5 mil. Kč</span></span><svg class="icon card-arrow"><use href="#i-arrow-sm"/></svg>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="about">
+      <div><strong>Investorská platforma</strong><p>Realitní projekty · Dluhopisy · Investiční příležitosti</p></div>
+      <div class="footer-right"><button type="button" data-action="about">O platformě</button><button type="button" data-action="how">Jak to funguje</button><p class="demo-note">Vizuální prototyp — všechny údaje o emisích a projektech jsou pouze ilustrační. Nejde o nabídku investice.</p></div>
+    </footer>
+  </div>
+
+  <dialog class="content-dialog" id="contentDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-header"><div class="dialog-kicker" id="dialogKicker">INVESTORSKÁ PLATFORMA</div><button type="button" class="dialog-close" id="closeDialog" aria-label="Zavřít"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <h2 id="dialogTitle"></h2>
+    <div class="dialog-content" id="dialogContent"></div>
+  </dialog>
+  <div id="a11yLive" class="sr-only" aria-live="polite" role="status"></div>
+</body>
+</html>
